@@ -9,7 +9,9 @@ export default function Home() {
     <Search/>
     </div>
     <Header/>
-
+    <div className='m-5'>
+    <Toprated/>
+    </div>
       </>
   )
 }
