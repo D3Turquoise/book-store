@@ -96,6 +96,7 @@ export default function SearchResult({keyword,searchResults,setSearchResults}) {
                           className="mt-4 block text-active underline"
                         >
                           Read More
+                          <input type="submit" value="add" onClick={() => addToCart(el)} />
                         </a>
                       </div>
                     </div>

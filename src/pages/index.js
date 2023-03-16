@@ -35,6 +35,9 @@ export default function Home() {
       <div className='m-5'>
         <Footer />
       </div>
+      <div>
+      <Checkout />
+    </div>
     </>
   )
 }
