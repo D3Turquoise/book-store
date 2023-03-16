@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
       <div class="flex items-center flex-shrink-0 text-white mr-6">
-        <div className="mr-3"><Image src={"/logo2.png"} width={100} height={100}></Image></div>      
+        <div className="mr-3"><Image src={"/logo.png"} width={100} height={100}></Image></div>      
         <span class="font-semibold text-xl tracking-tight">BookWorld</span>
       </div>
       <div class="block lg:hidden">
