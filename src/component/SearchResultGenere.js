@@ -1,26 +1,21 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 
-export default function SearchResult({
-  keyword,
-  searchResults,
-  setSearchResults,
-}) {
+export default function SearchResultGenere({keyword2,searchResults,setSearchResults}) {
   const [loading, setLoading] = useState(false);
 
-  const getResults = async (keyword) => {
+  const getResults = async (keyword2) => {
     try {
-      if (keyword !== null) {
-        console.log("keyword is" + keyword);
-        // Replace space with '+'
-        let search = keyword.replace(/ /g, "+");
-        setLoading(true);
-        const { data } = await axios.get("api/search/" + search);
-        // Add the data to the results state
-        console.log(data.items);
-        setSearchResults(data.items);
-        setLoading(false);
+      if ( keyword2 !== null){
+       console.log("keyword is "+keyword2)
+      // Replace space with '+'
+      let search = keyword2.replace(/ /g, "+");
+      setLoading(true);
+      const { data } = await axios.get("api/generesearch/"+search);
+      // Add the data to the results state
+      console.log(data.items)
+      setSearchResults(data.items);
+      setLoading(false);
       }
     } catch (error) {
       setLoading(false);
@@ -28,14 +23,14 @@ export default function SearchResult({
   };
 
   useEffect(() => {
-    getResults(keyword);
-  }, [keyword]);
+    getResults(keyword2)
+},[keyword2])
 
   return (
     <>
    <div className="flex justify-center">
       <h1 className="flex flex-1 text-5xl flex-col justify-between mt-4 text-center">
-        <span className="text-active">Books Search for: {keyword}</span>
+        <span className="text-active">Books Search for: {keyword2}</span>
       </h1>
       </div>
       <div className="flex justify-center">

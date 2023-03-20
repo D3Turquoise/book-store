@@ -1,96 +1,152 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
+import Image from "next/image";
 
-export default function Toprated() {
-    return (
-        <>
-        <div className= "flex justify-between">
 
-        <div class="flex justify-center">
-  <div
-    class="block max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-700">
-    <a href="#!">
-      <img
-        class="rounded-t-lg"
-        src="https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg"
-        alt="" />
-    </a>
-    <div class="p-6">
-      <h5
-        class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-        Card title
-      </h5>
-      <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-        Some quick example text to build on the card title and make up the
-        bulk of the card's content.
-      </p>
-      <button
-        type="button"
-        class="inline-block rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-        data-te-ripple-init
-        data-te-ripple-color="light">
-        Button
-      </button>
-    </div>
-  </div>
-</div>
+export default function Toprated({keyword,searchResults2,setSearchResults2}) {
+  const [loading, setLoading] = useState(false);
 
-<div class="flex justify-center">
-<div
-  class="block max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-700">
-  <a href="#!">
-    <img
-      class="rounded-t-lg"
-      src="https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg"
-      alt="" />
-  </a>
-  <div class="p-6">
-    <h5
-      class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-      Card title
-    </h5>
-    <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-      Some quick example text to build on the card title and make up the
-      bulk of the card's content.
-    </p>
-    <button
-      type="button"
-      class="inline-block rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-      data-te-ripple-init
-      data-te-ripple-color="light">
-      Button
-    </button>
-  </div>
-</div>
-</div>
+  // var finalElement = []; 
+  //  const addTofinal = (dat) => {
+  //     finalElement.push(dat)
+  //  };
 
-<div class="flex justify-center">
-<div
-  class="block max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-700">
-  <a href="#!">
-    <img
-      class="rounded-t-lg"
-      src="https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg"
-      alt="" />
-  </a>
-  <div class="p-6">
-    <h5
-      class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-      Card title
-    </h5>
-    <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-      Some quick example text to build on the card title and make up the
-      bulk of the card's content.
-    </p>
-    <button
-      type="button"
-      class="inline-block rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-      data-te-ripple-init
-      data-te-ripple-color="light">
-      Button
-    </button>
-  </div>
-</div>
-</div>
-</div>
-</>
-    )
+  const keyword3="Top Rated Books";
+  const getResults = async (keyword) => {
+    var finalElement = []; 
+      try {
+      if(!keyword ){
+        //console.log("keyword in toprated "+keyword)
+        setLoading(true);
+      // Replace space with '+'
+      //let search = keyword.replace(/ /g, "+");
+       const { data } = await axios.get("api/topsearch/")
+       //console.log(data)
+  
+       //data.forEach(async element => {
+       for(const element of data){
+        //console.log(element)
+        if (  typeof element.isbns !== 'undefined' && element.isbns && (element.isbns).length>0 && (element.isbns[0].isbn10).length>0){
+          // console.log(element.isbns[0].isbn10)
+          const searchtopvar =element.isbns[0].isbn10
+          const output = await axios.get("api/searchtop/"+searchtopvar); 
+          finalElement.push(output.data.items[0]);
+          
+          //addTofinal(output.data.items[0]);
+          // console.log("start");
+          // console.log(output.data.items[0]);
+          // console.log("end");
+          }
+
+     
+
+      
+        //console.log("This is final element start")
+ 
+           //console.log("This is final element end 2")
+          };
+       //console.log(finalElement)
+       setSearchResults2(finalElement);
+       //console.log("This is final element end")
+       //console.log(finalElement)
+          console.log(finalElement)
+          setLoading(false);
+          
+       // setSearchResults2(finalElement);
+      //const parsed = JSON.parse(data);
+      // console.log("this is result first")
+      // console.log(data)
+      //   console.log(data[0].isbns[0].isbn10)
+      //   const items = await axios.get("api/searchtop/"+data[0].isbns[0].isbn10);  
+      //   console.log(items.data)
+
+      //finalElement = [...finalElement, array1 ];
+      //console.log("this is final element"+finalElement)
+  
+      }
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
+   useEffect(() => {
+     getResults(keyword)
+ },[])
+
+  return (
+    <>
+   <div className="flex justify-center">
+      <h1 className="flex flex-1 text-5xl flex-col justify-between mt-4 text-center">
+      <span className="text-active text-break">Books Search for: {keyword3}</span>
+      </h1>
+      </div>
+      <div className="flex justify-center">
+      <h2 className="flex flex-1 flex-col text-2xl  justify-between mt-4 text-center"
+            type="submit"
+          >
+            {loading ? (
+              <span className="text-active">Loading...</span>
+            ) : (
+              <></>
+            )}
+        </h2>
+        </div>
+
+      {!loading && searchResults2 && (
+        <div className="flex justify-center">
+          <div className="p-4">
+            <div className="grid grid-cols-1 sm: grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+              {searchResults2.map((item, i) => {
+                let thumbnail =
+                  item.volumeInfo.imageLinks &&
+                  item.volumeInfo.imageLinks.smallThumbnail;
+                let amount =
+                  item.saleInfo.listPrice && item.saleInfo.listPrice.amount||8.0;
+                let title = item.volumeInfo.title;
+                let image = {
+                  id: i,
+                  height: 100,
+                  url: thumbnail,
+                  width: 100,
+                };
+
+                if (thumbnail) {
+                  return (
+                    <div
+                      key={i}
+                      className="flex flex-1 flex-col justify-between mt-4"
+                    >
+                      <img
+                        className="object-object-none object-center m-auto w-flex"
+                        src={thumbnail}
+                        alt=""
+                      />
+                      <div className=" m-3 text-center wrap-text">
+                        <div>{item.volumeInfo.title}</div>
+                      </div>
+                      <div className="m-3 text-center">
+                        <span>${amount}</span>
+                      </div>
+                      <div className="object-object-none object-center text-center">
+                        <button
+                          className="text-white bg-teal-500 m-3 p-3 align-self-end"
+                          onClick={() => {
+                            console.log("add");
+                          }}
+                        >
+                          Add to Cart
+                        </button>
+                      </div>
+                    </div>
+                  );
+                }
+              }
+              )
+              }
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
 }
