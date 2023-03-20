@@ -10,7 +10,7 @@ export default function SearchResult({keyword,searchResults,setSearchResults}) {
       // Replace space with '+'
       let search = keyword.replace(/ /g, "+");
       setLoading(true);
-      const { data } = await axios.get("api/search/"+search);
+      // const { data } = await axios.get("api/search/"+search);
       // Add the data to the results state
       console.log(data.items)
       setSearchResults(data.items);
@@ -86,7 +86,7 @@ export default function SearchResult({keyword,searchResults,setSearchResults}) {
                           {book.volumeInfo.title}
                         </h3>
                         <p className="mt-2 text-base leading-relaxed text-secondary">
-                          {book.saleInfo.listPrice && book.saleInfo.listPrice.amount}
+                        £{book.saleInfo.listPrice && book.saleInfo.listPrice.amount||8.0}
                         </p>
                         <span className="font-bold text-secondary">
                           Rating: {book.rating}
