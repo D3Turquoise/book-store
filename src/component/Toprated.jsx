@@ -40,7 +40,7 @@ export default function Toprated({keyword,setKeyword,searchResults2,setSearchRes
  return (
   <>
  <div className="flex justify-center">
-    <h1 className="flex flex-1 text-5xl flex-col justify-between mt-4 text-center">
+    <h1 className="flex flex-1 text-3xl flex-col justify-between mt-4 text-center">
       <span className="text-active">Books Search for: {keyword3}</span>
     </h1>
     </div>
@@ -101,7 +101,6 @@ export default function Toprated({keyword,setKeyword,searchResults2,setSearchRes
                       <button
                         className="text-white bg-teal-500 m-3 p-3 align-self-end"
                         onClick={() => {
-                          console.log("add");
                           addToCart(el);
                         }}
                       >

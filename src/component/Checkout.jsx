@@ -22,8 +22,6 @@ if(cart.length>0){
   };
  
 
-
-
   return (
     <>
    <div className="flex justify-center">

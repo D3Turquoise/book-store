@@ -7,6 +7,7 @@ import Footer from '../component/Footer'
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Image from 'next/image';
+import CartItems from '../component/CartItems'
 
 
 
@@ -28,6 +29,11 @@ export default function Home() {
 
   useEffect(() => {
     total()
+    setcartItemCount(
+      (
+        cart.reduce((acc, item) => acc + item.quantity, 0)
+    ));
+
   }, [cart]);
 
   const total = () => {
@@ -35,84 +41,54 @@ export default function Home() {
     for (let i = 0; i < cart.length; i++) {
       totalVal += cart[i].saleInfo.listPrice*cart[i].quantity;
     }
-    setCartTotal(totalVal);
+    setCartTotal(totalVal.toFixed(2));
   };
  
 
   const addToCart = (el) => {
     let hardCopy = [...cart];
-    let itemCount = cartItemCount
-    console.log("id is"+el.id)
     let hardCopy1 = hardCopy.filter((cartItem) => cartItem.id === el.id);
-    console.log("cart item id is")
-    console.log(hardCopy1)
-    if(hardCopy1 && hardCopy1[0] && hardCopy1.length>0){
-        console.log(hardCopy1[0].volumeInfo.title)
-        console.log(hardCopy1[0])       
+    let hardCopy2 = hardCopy.filter((cartItem) => cartItem.id !== el.id);
+    if(hardCopy1 && hardCopy1[0] && hardCopy1.length>0){ 
         hardCopy1[0].quantity = hardCopy1[0].quantity +1 
-        let hardCopy2 = hardCopy.filter((cartItem) => cartItem.id !== el.id);
         setCart([...hardCopy2, hardCopy1[0], ]);
-        setcartItemCount(itemCount+1)
     } else {
         el.quantity=1
-        console.log("cart items in first")
-        console.log(cart);
         setCart([...cart, el]);
-        console.log("cart items in second")
-        console.log(cart);
-        setcartItemCount(itemCount+1)
     }
+    setcartItemCount(
+      (
+        cart.reduce((acc, item) => acc + item.quantity, 0)
+    ));
 };
 
-const listCartItems = cart.map((item, index) => (
-  <div key={index}>
-    <div className="flex flex-row justify-center items-center flex-wrap">
-      <div className="flex flex-row items-center flex-wrap text-wrap-full m-6">
-          {item.volumeInfo.title}
-        <div/>
-        <div className="ml-2">
-          <p className="text-xs md:text-sm font-semibold">${item.saleInfo.listPrice}</p>
-        </div>
-      </div>
-      <div className="flex flex-row items-center gap-3">
-        <button className="bg-blue-500 text-white rounded-md p-1" onClick={() => removeFromCart(item)}>
-          <svg className="fill-white"  xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M200 606v-60h560v60H200Z"/></svg>
-        </button>
-        <p className="text-lg font-semibold">{item.quantity}</p>
-        <button className="bg-blue-500 text-white rounded-md p-1" onClick={() => addToCart(item)}>
-          <svg className="fill-white" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M450 856V606H200v-60h250V296h60v250h250v60H510v250h-60Z"/></svg>
-        </button>
-        <p className="text-lg font-semibold">${item.saleInfo.listPrice * item.quantity}</p>
-      </div>
-    </div>
-  </div>
-));
-
 const removeFromCart = (el) => {
-    console.log("i am in remove")
     let hardCopy = [...cart];
-    let itemCount = cartItemCount
+    let hardCopy2 = []
     let hardCopy1 = hardCopy.filter((cartItem) => cartItem.id == el.id);
     if(hardCopy1.length>0 && hardCopy1[0] && hardCopy1[0].quantity >0){
         hardCopy1[0].quantity = hardCopy1[0].quantity - 1 
-        let hardCopy2 = hardCopy.filter((cartItem) => cartItem.id !== el.id);
-        setCart([...hardCopy2, hardCopy1[0]]);
-        setcartItemCount(itemCount-1)
+        hardCopy2 = hardCopy.filter((cartItem) => cartItem.id !== el.id);
+        if (hardCopy1[0].quantity>0){         
+           setCart([...hardCopy2, hardCopy1[0]]);
+        } else {
+          setCart([...hardCopy2]); 
+        }
     } else {
         setCart([...cart]);
     }
+    setcartItemCount(
+      (
+        cart.reduce((acc, item) => acc + item.quantity, 0)
+    ));
 };
 
   function renderContent() {
     if (showCheckout) {
       return (
-       <><div className="flex flex-row border-4 justify-center text-3xl">Cart Summary</div>
-       <div className="text-2xl justify-left mx-10">{listCartItems} </div>
-       <div className="flex justify-center">
-      <h1 className="flex flex-1 text-3xl w-10 flex-row justify-center text-right">
-          Total= {cartTotal}
-        </h1>
-        </div></>
+        <>
+        <CartItems cart={cart} cartItemCount={cartItemCount} cartTotal={cartTotal} addToCart={addToCart} removeFromCart={removeFromCart} setKeyword={setKeyword} setShowCheckout={setShowCheckout}  setcompType={setcompType}/>
+        </>
       );
     } else {
   return (

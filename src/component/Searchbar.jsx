@@ -24,5 +24,5 @@ return (
     </div>
   </div>
 </div>
-    )
+ )
 }

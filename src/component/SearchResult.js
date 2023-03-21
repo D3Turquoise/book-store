@@ -14,7 +14,6 @@ export default function SearchResult({
   const getResults = async (keyword) => {
     try {
       if (keyword !== null) {
-        console.log("keyword is" + keyword);
         let search = keyword.replace(/ /g, "+");
         setLoading(true);
         const { data } = await axios.get("api/search/" + search);
@@ -33,7 +32,7 @@ export default function SearchResult({
   return (
     <>
    <div className="flex justify-center">
-      <h1 className="flex flex-1 text-5xl flex-col justify-between mt-4 text-center">
+      <h1 className="flex flex-1 text-3xl flex-col justify-between mt-4 text-center">
         <span className="text-active">Books Search for: {keyword}</span>
       </h1>
       </div>

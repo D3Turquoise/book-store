@@ -25,7 +25,7 @@ export default function SearchResultGenere({keyword2,searchResults,setSearchResu
 return (
   <>
  <div className="flex justify-center">
-    <h1 className="flex flex-1 text-5xl flex-col justify-between mt-4 text-center">
+    <h1 className="flex flex-1 text-3xl flex-col justify-between mt-4 text-center">
       <span className="text-active">Books Search for: {keyword2}</span>
     </h1>
     </div>
