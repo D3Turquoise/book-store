@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import {  Checkout } from "../component/Checkout"
 
 export default function SearchResult({
   keyword,
   searchResults,
   setSearchResults,
+  addToCart,
 }) {
   const [loading, setLoading] = useState(false);
 
@@ -13,12 +15,9 @@ export default function SearchResult({
     try {
       if (keyword !== null) {
         console.log("keyword is" + keyword);
-        // Replace space with '+'
         let search = keyword.replace(/ /g, "+");
         setLoading(true);
         const { data } = await axios.get("api/search/" + search);
-        // Add the data to the results state
-        console.log(data.items);
         setSearchResults(data.items);
         setLoading(false);
       }
@@ -61,17 +60,23 @@ export default function SearchResult({
                 let amount =
                   item.saleInfo.listPrice && item.saleInfo.listPrice.amount||8.0;
                 let title = item.volumeInfo.title;
-                let image = {
-                  id: i,
-                  height: 100,
-                  url: thumbnail,
-                  width: 100,
+   
+                const el =    {
+                  id: item.id,
+                  volumeInfo: {
+                    title: title,
+                    imageLink: thumbnail,
+                  },
+                  saleInfo: {
+                    listPrice: amount
+                  },
+                  quantity: 0,
                 };
 
                 if (thumbnail) {
                   return (
                     <div
-                      key={i}
+                      key={item.id}
                       className="flex flex-1 flex-col justify-between mt-4"
                     >
                       <img
@@ -89,7 +94,7 @@ export default function SearchResult({
                         <button
                           className="text-white bg-teal-500 m-3 p-3 align-self-end"
                           onClick={() => {
-                            console.log("add");
+                            addToCart(el);
                           }}
                         >
                           Add to Cart
