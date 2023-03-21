@@ -12,7 +12,7 @@ import CartItems from '../component/CartItems'
 
 
 export default function Home() {
-  const [keyword, setKeyword] = useState("Children");
+  const [keyword, setKeyword] = useState();
   const [keyword2, setKeyword2] = useState();
   const [searchResults, setSearchResults] = useState(null);
   const [searchResults2, setSearchResults2] = useState([]);
