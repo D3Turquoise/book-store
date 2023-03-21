@@ -8,6 +8,7 @@ export default function Header({keyword2,setKeyword,setKeyword2,compType, setcom
       <div className="flex items-center flex-shrink-0 text-white mr-6">
       <div className="mr-3"><Image src={"/logo.png"} width={100} height={100} alt="logo" ></Image></div>     
       <span class="font-semibold text-4xl tracking-tight">BookWorld</span>
+
       </div>
       <div className="block lg:hidden">
         <button className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
