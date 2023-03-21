@@ -6,7 +6,6 @@ import Toprated from '../component/Toprated'
 import Footer from '../component/Footer'
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Checkout from '@/component/Checkout'
 import Image from 'next/image';
 
 
@@ -98,7 +97,7 @@ const removeFromCart = (el) => {
         hardCopy1[0].quantity = hardCopy1[0].quantity - 1 
         let hardCopy2 = hardCopy.filter((cartItem) => cartItem.id !== el.id);
         setCart([...hardCopy2, hardCopy1[0]]);
-        setcartItemCount(itemCount+1)
+        setcartItemCount(itemCount-1)
     } else {
         setCart([...cart]);
     }

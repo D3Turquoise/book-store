@@ -1,12 +1,5 @@
 import {useState, useEffect } from 'react'; 
 
-// const Checkout = () => {
-//     const itemDetails = {
-//         name: '',
-//         price: 0,
-//     }
-// }
-
 const Checkout = (cart,addToCart,removeFromCart,listCartItems) => {
 
 const [cartTotal, setCartTotal] = useState(0);
