@@ -20,19 +20,19 @@ export default function Header({keyword2,setKeyword,setKeyword2,compType, setcom
         <button href="#responsive-header" value="Home" onClick={(e) => { e.preventDefault();  setKeyword(null); setShowCheckout(false); setcompType("topratedbook") }} className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 text-3xl">
             Home
           </button>
-          <button href="#responsive-header" value="Fiction" onClick={(e) => { e.preventDefault();  setKeyword2(e.target.value); setShowCheckout(false); setcompType("navbar") }} className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 text-3xl">
+          <button href="#responsive-header" value="Fiction" onClick={(e) => { e.preventDefault();setKeyword(null);   setKeyword2(e.target.value); setShowCheckout(false); setcompType("navbar") }} className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 text-3xl">
             Fiction
           </button>
-          <button href="#responsive-header" value="Crime" onClick={(e) => { e.preventDefault();  setKeyword2(e.target.value); setShowCheckout(false); setcompType("navbar") }} className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 text-3xl">
+          <button href="#responsive-header" value="Crime" onClick={(e) => { e.preventDefault(); setKeyword(null);  setKeyword2(e.target.value); setShowCheckout(false); setcompType("navbar") }} className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 text-3xl">
             Crime
           </button>
-          <button href="#responsive-header" value="Sport" onClick={(e) => { e.preventDefault();  setKeyword2(e.target.value); setShowCheckout(false); setcompType("navbar") }} className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 text-3xl">
+          <button href="#responsive-header" value="Sport" onClick={(e) => { e.preventDefault(); setKeyword(null);  setKeyword2(e.target.value); setShowCheckout(false); setcompType("navbar") }} className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 text-3xl">
             Sport
           </button>
-          <button href="#responsive-header" value="Science+Fiction" onClick={(e) => { e.preventDefault();  setKeyword2(e.target.value); setShowCheckout(false); setcompType("navbar") }} className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 text-3xl">
+          <button href="#responsive-header" value="Science+Fiction" onClick={(e) => { e.preventDefault(); setKeyword(null);  setKeyword2(e.target.value); setShowCheckout(false); setcompType("navbar") }} className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 text-3xl">
             Science Fiction
           </button>
-          <button href="#responsive-header" value="Children" onClick={(e) => { e.preventDefault();  setKeyword2(e.target.value); setShowCheckout(false); setcompType("navbar") }} className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 text-3xl">
+          <button href="#responsive-header" value="Children" onClick={(e) => { e.preventDefault(); setKeyword(null);  setKeyword2(e.target.value); setShowCheckout(false); setcompType("navbar") }} className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 text-3xl">
             Children
           </button>
           <button href="#responsive-header" hidden="true" value="topratedbook" onClick={(e) => { e.preventDefault();  setKeyword(null); setShowCheckout(false);setcompType("topratedbook") }} className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 text-3xl">
