@@ -1,47 +1,32 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 
-
-export default function Toprated({keyword,setKeyword,searchResults2,setSearchResults2, addToCart}) {
+export default function SearchResultGenere({keyword2,searchResults,setSearchResults,  addToCart}) {
   const [loading, setLoading] = useState(false);
 
-  const keyword3="Top Rated Books";
-  const getResults = async (keyword) => {
-    var finalElement = []; 
-      try {
-      if(!keyword ){
-        setLoading(true);
-       const { data } = await axios.get("api/topsearch/")
-  
-       for(const element of data){
-        if (  typeof element.isbns !== 'undefined' && element.isbns && (element.isbns).length>0 && (element.isbns[0].isbn10).length>0){
-          const searchtopvar =element.isbns[0].isbn10
-          const output = await axios.get("api/searchtop/"+searchtopvar); 
-          finalElement.push(output.data.items[0]);
-
-          }
-
-
-          };
-       setSearchResults2(finalElement);
-          setLoading(false);
-          
+  const getResults = async (keyword2) => {
+    try {
+      if ( keyword2 !== null){
+      let search = keyword2.replace(/ /g, "+");
+      setLoading(true);
+      const { data } = await axios.get("api/generesearch/"+search);
+      setSearchResults(data.items);
+      setLoading(false);
       }
     } catch (error) {
       setLoading(false);
     }
   };
 
-   useEffect(() => {
-     getResults(keyword)
- },[])
+  useEffect(() => {
+    getResults(keyword2)
+},[keyword2])
 
- return (
+return (
   <>
  <div className="flex justify-center">
     <h1 className="flex flex-1 text-3xl flex-col justify-between mt-4 text-center">
-      <span className="text-active">Books Search for: {keyword3}</span>
+      <span className="text-active">Books Search for: {keyword2}</span>
     </h1>
     </div>
     <div className="flex justify-center">
@@ -56,16 +41,16 @@ export default function Toprated({keyword,setKeyword,searchResults2,setSearchRes
       </h2>
       </div>
 
-    {!loading && searchResults2 && (
+    {!loading && searchResults && (
       <div className="flex justify-center">
         <div className="p-4">
           <div className="grid grid-cols-1 sm: grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-            {searchResults2.map((item, i) => {
+            {searchResults.map((item, i) => {
               let thumbnail =
                 item.volumeInfo.imageLinks &&
                 item.volumeInfo.imageLinks.smallThumbnail;
               let amount =
-                item.saleInfo.listPrice && item.saleInfo.listPrice.amount||8.0;
+                (item.saleInfo.listPrice && item.saleInfo.listPrice.amount||8.0);
               let title = item.volumeInfo.title;
  
               const el =    {

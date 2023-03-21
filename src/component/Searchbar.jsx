@@ -1,33 +1,28 @@
 import axios from "axios";
 import { useState } from "react";
 
-export default function Search({keyword,setKeyword,searchResults,setSearchResults}) {
+export default function Search({keyword,setKeyword,compType, setcompType}) {
 return (
-<div class="flex justify-center">
-  <div class="mb-3 xl:w-96">
-    <div class="relative mb-4 flex w-full flex-wrap items-stretch">
-      <input
-        type="search"
-        class="relative m-0 block w-[1%] min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-1.5 text-base font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-primary-600 focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200"
-        placeholder="Search"
-        aria-label="Search"
-        aria-describedby="button-addon2" value={keyword} onChange={(e) => setKeyword(e.target.value)}  />
-      <span
-        class="input-group-text flex items-center whitespace-nowrap rounded px-3 py-1.5 text-center text-base font-normal text-neutral-700 dark:text-neutral-200"
-        id="basic-addon2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          class="h-5 w-5">
-          <path
-            fill-rule="evenodd"
-            d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-            clip-rule="evenodd" />
-        </svg>
-      </span>
+<div className="flex justify-center mt-4">
+  <div className="m-5 xl:w-1/3">
+    <div className="relative mb-4 flex w-full flex-wrap items-stretch">
+
+<form class="flex items-center w-3/4">   
+    <label for="simple-search" className="sr-only">Search</label>
+    <div className="relative w-full">
+        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+        </div>
+        <input type="text" id="simple-search" value={keyword} onChange={(e) => {setKeyword(e.target.value); setcompType("textbox") } } className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required/>
+    </div>
+    <button type="submit" value={keyword} onClick={(e) => { e.preventDefault(); setcompType("textbox") } } className="p-2.5 ml-2 text-sm font-medium text-white bg-teal-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        <span className="sr-only">Search</span>
+    </button>
+</form>
+       
     </div>
   </div>
 </div>
-    )
+ )
 }

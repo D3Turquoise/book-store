@@ -1,112 +1,114 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import {  Checkout } from "../component/Checkout"
 
-export default function SearchResult({keyword,searchResults,setSearchResults}) {
+export default function SearchResult({
+  keyword,
+  searchResults,
+  setSearchResults,
+  addToCart,
+}) {
   const [loading, setLoading] = useState(false);
 
   const getResults = async (keyword) => {
     try {
-       console.log("keyword is "+keyword)
-      // Replace space with '+'
-      let search = keyword.replace(/ /g, "+");
-      setLoading(true);
-      const { data } = await axios.get("api/search/"+search);
-      // Add the data to the results state
-      console.log(data.items)
-      setSearchResults(data.items);
-      setLoading(false);
+      if (keyword !== null) {
+        let search = keyword.replace(/ /g, "+");
+        setLoading(true);
+        const { data } = await axios.get("api/search/" + search);
+        setSearchResults(data.items);
+        setLoading(false);
+      }
     } catch (error) {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    getResults(keyword)
-},[keyword])
+    getResults(keyword);
+  }, [keyword]);
 
   return (
-    <div className="flex flex-col md:px-12 px-4 bg-background font-poppins items-center min-h-screen">
-      {/* <h1 className="md:text-6xl text-4xl font-bold text-primary mt-10">
-        <span className="text-active">Books</span> Search
-      </h1> */}
-      {/* <form
-        className="sm:mx-auto mt-10 justify-center sm:w-full sm:flex"
-        onSubmit={(e) => {
-          getResults();
-          e.preventDefault();
-          e.stopPropagation();
-        }}
-      >
-        <input
-          type="text"
-          className="flex w-full sm:w-1/3 rounded-lg px-5 py-3 text-base text-background font-semibold focus:outline-none focus:ring-2 focus:ring-active"
-          placeholder="Enter the book's title"
-          defaultValue={keyword}
-          onChange={(e) => {
-            setKeyword(e.target.value);
-            setSearchResults(null);
-          }}
-        />
-
-        <div className="mt-4 sm:mt-0 sm:ml-3">
-          <button
-            className="block w-full rounded-lg px-5 py-3 bg-active text-base text-primary font-bold hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-primary sm:px-10"
+    <>
+   <div className="flex justify-center">
+      <h1 className="flex flex-1 text-3xl flex-col justify-between mt-4 text-center">
+        <span className="text-active">Books Search for: {keyword}</span>
+      </h1>
+      </div>
+      <div className="flex justify-center">
+      <h2 className="flex flex-1 flex-col text-2xl  justify-between mt-4 text-center"
             type="submit"
           >
             {loading ? (
-              <span className="animate-pulse">Loading..</span>
+              <span className="text-active">Loading...</span>
             ) : (
-              <>Search</>
+              <></>
             )}
-          </button>
+        </h2>
         </div>
-      </form> */}
 
-      {
-      searchResults && (
-        <div className="mt-10">
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-3">
-            {searchResults.map((book, index) => {
-              return (
-                <div key={index} className="pt-6">
-                  <div className="flow-root bg-light rounded-lg px-4 pb-8">
-                    <div className="-mt-6">
-                      <div className="flex items-center justify-center">
-                        <img
-                          src={
-                            // Removes compression to get higher quality
-                            book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.smallThumbnail
-                          }
-                          className="p-2 w-64 rounded-lg"
-                          alt={book.volumeInfo.title}
-                        />
+      {!loading && searchResults && (
+        <div className="flex justify-center">
+          <div className="p-4">
+            <div className="grid grid-cols-1 sm: grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+              {searchResults.map((item, i) => {
+                let thumbnail =
+                  item.volumeInfo.imageLinks &&
+                  item.volumeInfo.imageLinks.smallThumbnail;
+                let amount =
+                  item.saleInfo.listPrice && item.saleInfo.listPrice.amount||8.0;
+                let title = item.volumeInfo.title;
+   
+                const el =    {
+                  id: item.id,
+                  volumeInfo: {
+                    title: title,
+                    imageLink: thumbnail,
+                  },
+                  saleInfo: {
+                    listPrice: amount
+                  },
+                  quantity: 0,
+                };
+
+                if (thumbnail) {
+                  return (
+                    <div
+                      key={item.id}
+                      className="flex flex-1 flex-col justify-between mt-4"
+                    >
+                      <img
+                        className="object-object-none object-center m-auto w-flex"
+                        src={thumbnail}
+                        alt=""
+                      />
+                      <div className=" m-3 text-center wrap-text">
+                        <div>{item.volumeInfo.title}</div>
                       </div>
-                      <div className="text-center justify-center items-center">
-                        <h3 className="mt-4 text-lg font-bold w-full break-words overflow-x-auto text-primary tracking-tight">
-                          {book.volumeInfo.title}
-                        </h3>
-                        <p className="mt-2 text-base leading-relaxed text-secondary">
-                          {book.saleInfo.listPrice && book.saleInfo.listPrice.amount}
-                        </p>
-                        <span className="font-bold text-secondary">
-                          Rating: {book.rating}
-                        </span>
-                        <a
-                          href={book.url}
-                          className="mt-4 block text-active underline"
+                      <div className="m-3 text-center">
+                        <span>${amount}</span>
+                      </div>
+                      <div className="object-object-none object-center text-center">
+                        <button
+                          className="text-white bg-teal-500 m-3 p-3 align-self-end"
+                          onClick={() => {
+                            addToCart(el);
+                          }}
                         >
-                          Read More
-                        </a>
+                          Add to Cart
+                        </button>
                       </div>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
+                  );
+                }
+              }
+              )
+              }
+            </div>
           </div>
         </div>
       )}
-
-    </div>
+    </>
   );
 }
