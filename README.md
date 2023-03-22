@@ -1,38 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Bookstore, BookWorld 
+Module-16-Project 2
 
-## Getting Started
+## Description
+This ‘bookworld’ website allows the user to search information about books. The application displays the book name, the book cover and its price using the user search input. 
 
-First, run the development server:
+The user can also browse for books by genre using the navbar located at the top of the page. Top rated books are also included in the application in addition to the book genres. 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+The user can select the books they wish to purchase by select ‘add to cart’ button. 
+The checkout cart is located to  the right top corner of the website. When clicked, it takes the user to a new page where the list of the selected books is shown. The checkout page displays the quantity of books which can be increased and decreased, the individual price plus the shipping and the total price. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Prerequisites
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+The app should:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Must use ReactJS.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Must use Node.
 
-## Learn More
+Must have both GET and POST routes for retrieving and adding new data.
 
-To learn more about Next.js, take a look at the following resources:
+Must deploy this application using Netlify.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Must utilize at least two libraries, packages, or technologies that we haven't discussed.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Must have a polished front end/UI.
 
-## Deploy on Vercel
+Must meet good quality coding standards (indentation, scoping, naming).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Have a quality README (with unique name, description, technologies used, screenshot, and link to deployed application).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Installation
+ git repository (https://github.com/D3Turquoise/book-store)
+
+## Deployment
+[Project Link] (https://book-store-h3w7rdnhu-d3turquoise.vercel.app/)
+
+(ScreenShot) ![BookWorld deployed website](./screenshot.png)
+
+## Usage
+N/A
+
+## Credits
+Anastasia Toleva
+Avadhesh Mishra
+Shaz Kawa
+Jose Alonso Grana 
+
+## License
+Please refer to the LICENSE in the repository.
+
+## Features
+N/A
+
+## Tests
+N/A
+
+## Resources
+- GitHub.
+- API’s used:
+Google Books
+New York Times Best Sellers Books
+- React 
+- Next.js
+- Tailwind CSS
+- React Hooks
+- HTML
+- CSS
+
